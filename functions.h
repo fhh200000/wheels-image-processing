@@ -11,7 +11,8 @@ void renderScene(void);
 void showmenu(void);
 //高斯模糊函数，位置位于filter/blur/gauss.c.
 void blur_gauss(int width,int height,void* bufferdata);
-//中值模糊函数，位置位于filter/blur/medium.c/
+//中值模糊函数，位置位于filter/blur/medium.c.
 void blur_medium(int width,int height,void* bufferdata);
-
+//KNN中值模糊函数，位置位于filter/blur/knn.c.
+void blur_knn(int width,int height,void* bufferdata,int K);
 #endif // FUNCTIONS_H_INCLUDED

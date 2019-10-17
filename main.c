@@ -23,7 +23,8 @@ void keyboardProc(unsigned char button, int x, int y)
     case  99:case 67:{memset(pixeldata,0,imageheight*imagewidth*3);renderScene();break;}    //'c'/'C'
     case 114:case 82:{memcpy(pixeldata,origdata,imageheight*imagewidth*3);renderScene();break;}    //'r'/'R'
     case 103:case 71:{blur_gauss(imagewidth,imageheight,pixeldata);renderScene();break;}    //'g'/'G'
-    case 122:case 90:{blur_medium(imagewidth,imageheight,pixeldata);renderScene();break;}    //'g'/'G'
+    case 107:case 75:{blur_knn(imagewidth,imageheight,pixeldata,5);renderScene();break;}    //'k'/'K'
+    case 122:case 90:{blur_medium(imagewidth,imageheight,pixeldata);renderScene();break;}    //'z'/'Z'
     case 120:case 88:{FreeImage_Unload(dib);exit(0);}   //'x'/'X'
     default:{printf("不支持的功能入口。\n");}
     }
@@ -43,6 +44,7 @@ void showmenu(void)
 C.清空。\n\
 G.高斯模糊。\n\
 Z.中值模糊。\n\
+K.KNN中值模糊。\n\
 X.退出程序。\n\
 R.恢复源数据。\n\
 M.打印菜单。\n");
