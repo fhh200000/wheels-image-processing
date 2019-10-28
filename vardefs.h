@@ -9,10 +9,14 @@
 //设置窗口大小
 extern int imagewidth,imageheight;
 //定义抽象像素数据类型。
-typedef struct
+typedef  struct
 {
     unsigned char B;
     unsigned char G;
     unsigned char R;
 } pixel;
+//定义布尔变量和值。
+typedef unsigned char bool;
+#define true 1
+#define false 0
 #endif // VARDEFS_H_INCLUDED

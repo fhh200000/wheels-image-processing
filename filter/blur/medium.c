@@ -4,7 +4,10 @@
  Copyright Igniculus 2019, licensed under GNU GPL 3.
 */
 #include "../../vardefs.h"
-int cmp(const void *a , const void *b);
+int cmp(const void *a , const void *b)
+{
+        return *(unsigned char *)b - *(unsigned char *)a;
+}
 void blur_medium(int width,int height,void* bufferdata)
 {
      //内存中的数据按照RGBRGB…………的顺序存储，因此只需将图像数据强制转化成“像素”结构体的指针即可。

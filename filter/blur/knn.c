@@ -5,12 +5,20 @@
  Copyright Igniculus 2019, licensed under GNU GPL 3.
 */
 #include "../../vardefs.h"
-int cmp(const void *a , const void *b)
+int cmp_abs(const void *a , const void *b)
 {
-        return *(unsigned char *)a - *(unsigned char *)b;
+        return abs(*(unsigned char *)a) - abs(*(unsigned char *)b);
 }
-void blur_knn(int width,int height,void* bufferdata,int K)
+void blur_knn(int width,int height,void* bufferdata)
 {
+    printf("请输入K的取值：\n");
+    int K;
+    scanf("%d",&K);
+    if(K>7)
+    {
+        printf("无效的输入，请重新选择功能！");
+        return;
+    }
      //内存中的数据按照RGBRGB…………的顺序存储，因此只需将图像数据强制转化成“像素”结构体的指针即可。
     pixel* pixeldata = (pixel*) bufferdata;
     //创建临时内存空间。
@@ -24,20 +32,20 @@ void blur_knn(int width,int height,void* bufferdata,int K)
             {
                 for(int l=k*width+j-1;l<k*width+j+2;l++)
                     {
-                        tempDistanceR[curr]=abs(pixeldata[l].R-pixeltemp[i*width+j].R);
-                        tempDistanceG[curr]=abs(pixeldata[l].G-pixeltemp[i*width+j].G);
-                        tempDistanceB[curr]=abs(pixeldata[l].B-pixeltemp[i*width+j].B);
+                        tempDistanceR[curr]=pixeldata[l].R-pixeltemp[i*width+j].R;
+                        tempDistanceG[curr]=pixeldata[l].G-pixeltemp[i*width+j].G;
+                        tempDistanceB[curr]=pixeldata[l].B-pixeltemp[i*width+j].B;
                         curr++;
                     }
             }
             //排序。
-            qsort(tempDistanceR,9,1,cmp);
-            qsort(tempDistanceG,9,1,cmp);
-            qsort(tempDistanceB,9,1,cmp);
+            qsort(tempDistanceR,9,1,cmp_abs);
+            qsort(tempDistanceG,9,1,cmp_abs);
+            qsort(tempDistanceB,9,1,cmp_abs);
             //查找最接近的K个像素。
             //由于将自身加入比较，第一位必为0(自身)。
             unsigned offsetR=0,offsetG=0,offsetB=0;
-            for(int k=0;k<K+1;k++)
+            for(int k=K;k>0;k--)
             {
                 offsetR+=tempDistanceR[k];
                 offsetG+=tempDistanceG[k];
