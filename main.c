@@ -25,6 +25,9 @@ void keyboardProc(unsigned char button, int x, int y)
     case 114:case 82:{memcpy(pixeldata,origdata,imageheight*imagewidth*3);renderScene();break;}    //'r'/'R'
     case 103:case 71:{blur_gauss(imagewidth,imageheight,pixeldata);renderScene();break;}    //'g'/'G'
     case 104:case 72:{sharpen_horizontal(imagewidth,imageheight,pixeldata,(button-72));renderScene();break;}    //'h'/'H'
+    case 118:case 86:{sharpen_vertical(imagewidth,imageheight,pixeldata,(button-86));renderScene();break;}    //'v'/'V'
+    case 111:case 79:{sharpen_robert(imagewidth,imageheight,pixeldata,(button-79));renderScene();break;}    //'o'/'O'
+    case 112:case 80:{sharpen_priwitt(imagewidth,imageheight,pixeldata,(button-80));renderScene();break;}    //'p'/'P'
     case 107:case 75:{blur_knn(imagewidth,imageheight,pixeldata);renderScene();break;}    //'k'/'K'
     case 122:case 90:{blur_medium(imagewidth,imageheight,pixeldata);renderScene();break;}    //'z'/'Z'
     case 120:case 88:{FreeImage_Unload(dib);exit(0);}   //'x'/'X'
@@ -47,6 +50,12 @@ C.清空。\n\
 D.标准去色。\n\
 H.水平锐化（不混合）。\n\
 h.水平锐化（混合）。\n\
+V.垂直锐化（不混合）。\n\
+v.垂直锐化（混合）。\n\
+O.Robert锐化（不混合）。\n\
+o.Robert锐化（混合）。\n\
+P.Priwitt锐化（不混合）。\n\
+p.Priwitt锐化（混合）。\n\
 G.高斯模糊。\n\
 Z.中值模糊。\n\
 K.KNN中值模糊。\n\
@@ -58,7 +67,6 @@ int main(int argc, char **argv)
 {
     //打开文件
     char* filename="/home/fhh/ImageProcessing/aoe.bmp";
-    //char* filename="/run/media/fhh/Utilities/Anthem Of NBZX x Anthem Of Former DDR/flag.png";
     FREE_IMAGE_FORMAT fifmt = FreeImage_GetFileType(filename, 0);
     dib = FreeImage_Load(fifmt,filename, 0);
     dib = FreeImage_ConvertTo24Bits(dib);   //convert to 24 bits

@@ -21,5 +21,12 @@ void decolourer_plain(int width,int height,void* bufferdata);
 //两层图层混合函数，位置位于filter/sharpen/horizontal.c.
 void blend(pixel* origpixel,pixel* deltapixel,int width,int height);
 //水平方向锐化函数，位置位于filter/sharpen/horizontal.c.
-void sharpen_horizontal(int width,int height,void* bufferdata,bool dontblend);
+void sharpen_horizontal(int width,int height,void* bufferdata,bool doblend);
+//垂直方向锐化函数，位置位于filter/sharpen/horizontal.c.
+void sharpen_vertical(int width,int height,void* bufferdata,bool doblend);
+//Robert锐化函数，位置位于filter/sharpen/robert.c.
+void sharpen_robert(int width,int height,void* bufferdata,bool doblend);
+//Priwitt锐化函数，位置位于filter/sharpen/priwitt.c.
+void sharpen_priwitt(int width,int height,void* bufferdata,bool doblend);
+
 #endif // FUNCTIONS_H_INCLUDED
